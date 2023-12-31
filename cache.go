@@ -13,13 +13,16 @@ import (
 
 
 type PlayerData struct {
-	ID                    string        `json:"id"`
+	ID                    int        		`json:"id"`
 	First									string        `json:"first"`
 	Last									string        `json:"last"`
 	Full									string        `json:"full"`
 	Abv										string        `json:"abv"`
+	Jersey                string        `json:"jerseyNum"`
+	Position              string        `json:"position"`
 	Starter								string        `json:"starter"`
 	Active                string        `json:"active"`
+	Order                 int           `json:"order"`
 	Minutes               int           `json:"minutes"`
 	Points								int           `json:"points"`
 	Oreb									int           `json:"oreb"`
@@ -39,11 +42,11 @@ type PlayerData struct {
 	Fouls									int           `json:"fouls"`
 	Fouled								int           `json:"fouled"`
 	Technicals						int           `json:"technicals"`
-	Fragrants							int           `json:"fragrants"`
+	Flagrants							int           `json:"flagrants"`
 	Paint									int           `json:"paint"`
 	Fastbreak							int           `json:"fastbreak"`
 	SecondChance					int           `json:"secondChance"`
-	PlusMinus							int           `json:"plusMinus"`
+	PlusMinus							float64       `json:"plusMinus"`
 }
 
 
@@ -79,7 +82,7 @@ type Game struct {
 }
 
 
-type Rankings struct {
+type Standings struct {
 
 }
 
@@ -92,7 +95,7 @@ type Leaders struct {
 type Season struct {
 	ID										string				`json:"id"`
 	Games									map[string]Game	`json:"games"`
-	Rankings							Rankings			`json:"rankings"`
+	Standings							Standings			`json:"standings"`
 	Leaders								Leaders				`json:"leaders"`
 }
 
@@ -142,6 +145,44 @@ func AddTeam() {
 func TPlayerData(p []stats.NbaPlayer) map[int]PlayerData {
 
 	ret := map[int]PlayerData{}
+
+	for _, player := range p {
+
+		log.Println(player)
+
+		ret[player.ID] = PlayerData {
+			ID: player.ID,
+			First: player.First,
+			Last: player.Last,
+			Full: player.Name,
+			Abv: player.NameShort,
+			Position: player.Position,
+			Starter: player.Starter,
+			Order: player.Order,
+			Points: player.Statistics.Points,
+			Oreb: player.Statistics.Oreb,
+			Dreb: player.Statistics.Dreb,
+			Treb: player.Statistics.Treb,
+			Fga: player.Statistics.Fga,
+			Fgm: player.Statistics.Fgm,
+			Fta: player.Statistics.Fta,
+			Ftm: player.Statistics.Ftm,
+			Fg3a: player.Statistics.Fg3a,
+			Fg3m: player.Statistics.Fg3m,
+			Assists: player.Statistics.Assists,
+			Blocks: player.Statistics.Blocks,
+			Steals: player.Statistics.Steals,
+			Blocked: player.Statistics.Blocked,
+			Turnovers: player.Statistics.Turnovers,
+			Fouls: player.Statistics.Fouls,
+			Fouled: player.Statistics.FoulsDrawn,
+			Technicals: player.Statistics.Technicals,
+			Fastbreak: player.Statistics.PointsFast,
+			Paint: player.Statistics.PointsPaint,
+			SecondChance: player.Statistics.PointsSecond,
+			PlusMinus: player.Statistics.PlusMinus,
+		}
+	}
 
 	return ret
 

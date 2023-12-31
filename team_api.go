@@ -9,7 +9,7 @@ import (
 )
 
 
-func gameHandler(w http.ResponseWriter, r *http.Request) {
+func teamHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodPut:
@@ -18,6 +18,8 @@ func gameHandler(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 
 		id := vars[ID]
+
+		log.Println(id)
 
 		g := cache.Seasons["2023"].Games[id]
 
@@ -35,4 +37,4 @@ func gameHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
 	
-} // gameHandler
+} // teamHandler

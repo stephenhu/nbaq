@@ -2,3 +2,5 @@ github.com/gorilla/mux v1.8.1 h1:TuBL49tXwgrFYWhqrNgrUNEY92u81SPhu7sTdzQEiWY=
 github.com/gorilla/mux v1.8.1/go.mod h1:AKf9I4AEqPTmMytcMc0KkNouC66V3BtZ4qD5fmWSiMQ=
 github.com/stephenhu/stats v0.2.10 h1:AD/TvqBpIRAjSabATOW5HGgvI4+BQj9yohYLNsgFzYo=
 github.com/stephenhu/stats v0.2.10/go.mod h1:cqm71u0HFE9HjyjmFTWAklHs8Ema2Gb+/g1FUJnfJRQ=
+github.com/stephenhu/stats v0.2.11 h1:4nr4w9aWeLeZduiLVK591zOhM5TCEcHfvy3bMorPMTA=
+github.com/stephenhu/stats v0.2.11/go.mod h1:cqm71u0HFE9HjyjmFTWAklHs8Ema2Gb+/g1FUJnfJRQ=
