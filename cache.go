@@ -48,7 +48,8 @@ type PlayerData struct {
 
 
 type Period struct {
-	Points								int           `json:"points"`
+	Number								int           `json:"number"`
+	PeriodType						string        `json:"periodType"`
 	Away                  int           `json:"away"`
 	Home                  int           `json:"home"`
 }
@@ -137,7 +138,47 @@ func AddTeam() {
 
 } // AddTeam
 
-	
+
+func TPlayerData(p []stats.NbaPlayer) map[int]PlayerData {
+
+	ret := map[int]PlayerData{}
+
+	return ret
+
+} // TPlayerData
+
+
+func TPeriods(a []stats.NbaScoreData,
+	h []stats.NbaScoreData) map[int]Period {
+
+	ret := map[int]Period{}
+
+	if len(h) != len(a) {
+		
+		log.Println("Error: periods number mismatch between home and away")
+		return nil
+
+	} else {
+
+		for i, _ := range a {
+
+			np := Period{
+				Number: a[i].Period,
+				Away: a[i].Score,
+				Home: h[i].Score,
+			}
+
+			ret[a[i].Period] = np
+
+		}
+
+		return ret
+
+	}
+
+} // TPeriods
+
+
 func TBoxscore(b stats.NbaBoxscore) {
 
 	s := Season{
@@ -154,17 +195,18 @@ func TBoxscore(b stats.NbaBoxscore) {
 	g := Game{
 		ID: b.Game.ID,
 		Date: b.Game.GameTime,
+		Periods: TPeriods(b.Game.Away.Periods, b.Game.Home.Periods),
 		Away: TeamData{
 			ID: b.Game.Away.ID,
 			Abv: b.Game.Away.ShortName,
 			Score: b.Game.Away.Score,
-			Players: map[int]PlayerData{},
+			Players: TPlayerData(b.Game.Away.Players),
 		},
 		Home: TeamData{
 			ID: b.Game.Home.ID,
 			Abv: b.Game.Home.ShortName,
 			Score: b.Game.Home.Score,
-			Players: map[int]PlayerData{},
+			Players: TPlayerData(b.Game.Home.Players),
 		},
 	}
 
@@ -197,6 +239,10 @@ func loadBoxscore(p string) {
 
 
 func initCache() {
+
+	cache = NbaCache{
+		Seasons: map[string]Season{},
+	}
 
 	dirs := getFiles(src)
 

@@ -3,7 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	//"log"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 
@@ -18,6 +21,18 @@ func initFlags() {
 } // initFlags
 
 
+func initRouter() *mux.Router {
+
+	router := mux.NewRouter()
+
+	router.HandleFunc("/api/v1/games/{id:[0-9]+}", gameHandler)
+	router.HandleFunc("/api/v1/version", versionHandler)
+
+	return router
+
+} // initRouter
+
+
 func main() {
 
 	initFlags()
@@ -26,10 +41,8 @@ func main() {
 
 	fmt.Printf("Starting %s...\n", version())
 
-	cache = NbaCache{
-		Seasons: map[string]Season{},
-	}
-
 	initCache()
+
+	log.Fatal(http.ListenAndServe("127.0.0.1:8000", initRouter()))
 
 } // main

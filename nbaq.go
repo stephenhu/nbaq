@@ -9,4 +9,5 @@ const (
 	CURRENT_DIR						= "."
 	JSON_EXT              = ".json"
 	PLAY_BY_PLAY          = "playbyplay"
+	ID                    = "id"
 )

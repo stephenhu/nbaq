@@ -1,2 +1,2 @@
 # nbaq
-API for NBA statistics and analysis
+super fast API for analyzing and querying NBA statistics, all data loaded to memory.
