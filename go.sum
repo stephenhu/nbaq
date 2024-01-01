@@ -1,6 +1,10 @@
 github.com/gorilla/mux v1.8.1 h1:TuBL49tXwgrFYWhqrNgrUNEY92u81SPhu7sTdzQEiWY=
 github.com/gorilla/mux v1.8.1/go.mod h1:AKf9I4AEqPTmMytcMc0KkNouC66V3BtZ4qD5fmWSiMQ=
-github.com/stephenhu/stats v0.2.10 h1:AD/TvqBpIRAjSabATOW5HGgvI4+BQj9yohYLNsgFzYo=
-github.com/stephenhu/stats v0.2.10/go.mod h1:cqm71u0HFE9HjyjmFTWAklHs8Ema2Gb+/g1FUJnfJRQ=
-github.com/stephenhu/stats v0.2.11 h1:4nr4w9aWeLeZduiLVK591zOhM5TCEcHfvy3bMorPMTA=
-github.com/stephenhu/stats v0.2.11/go.mod h1:cqm71u0HFE9HjyjmFTWAklHs8Ema2Gb+/g1FUJnfJRQ=
+github.com/stephenhu/stats v0.2.1 h1:mplXepv0qipYR3G9TDxtISSvZXL1CdLiLrGIm8+9U8o=
+github.com/stephenhu/stats v0.2.1/go.mod h1:cqm71u0HFE9HjyjmFTWAklHs8Ema2Gb+/g1FUJnfJRQ=
+github.com/stephenhu/stats v0.2.3 h1:Jx1H10Qazm4iK6oniVeR+0ZOcv6N/OiNyP7INhCVf2E=
+github.com/stephenhu/stats v0.2.3/go.mod h1:cqm71u0HFE9HjyjmFTWAklHs8Ema2Gb+/g1FUJnfJRQ=
+github.com/stephenhu/stats v0.2.12 h1:SAqLRGpyvsc08JOdL3ubCg04SO78B/5/TTcjRhFd5Eg=
+github.com/stephenhu/stats v0.2.12/go.mod h1:cqm71u0HFE9HjyjmFTWAklHs8Ema2Gb+/g1FUJnfJRQ=
+github.com/stephenhu/stats v0.2.13 h1:NEKEVPmC9mKMUtw7lE71GSi4+HC0fo+qG3Cvf463i8s=
+github.com/stephenhu/stats v0.2.13/go.mod h1:cqm71u0HFE9HjyjmFTWAklHs8Ema2Gb+/g1FUJnfJRQ=

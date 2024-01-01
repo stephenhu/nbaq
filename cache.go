@@ -23,7 +23,7 @@ type PlayerData struct {
 	Starter								string        `json:"starter"`
 	Active                string        `json:"active"`
 	Order                 int           `json:"order"`
-	Minutes               int           `json:"minutes"`
+	Minutes               string        `json:"minutes"`
 	Points								int           `json:"points"`
 	Oreb									int           `json:"oreb"`
 	Dreb									int           `json:"dreb"`
@@ -32,6 +32,8 @@ type PlayerData struct {
 	Fgm										int           `json:"fgm"`
 	Fta										int           `json:"fta"`
 	Ftm										int           `json:"ftm"`
+	Fg2a									int           `json:"fg2a"`
+	Fg2m									int           `json:"fg2m"`
 	Fg3a									int           `json:"fg3a"`
 	Fg3m									int           `json:"fg3m"`
 	Steals								int           `json:"steals"`
@@ -41,8 +43,8 @@ type PlayerData struct {
 	Turnovers							int           `json:"turnovers"`
 	Fouls									int           `json:"fouls"`
 	Fouled								int           `json:"fouled"`
+	FoulsOffensive				int           `json:"foulsOffensive"`
 	Technicals						int           `json:"technicals"`
-	Flagrants							int           `json:"flagrants"`
 	Paint									int           `json:"paint"`
 	Fastbreak							int           `json:"fastbreak"`
 	SecondChance					int           `json:"secondChance"`
@@ -157,8 +159,10 @@ func TPlayerData(p []stats.NbaPlayer) map[int]PlayerData {
 			Full: player.Name,
 			Abv: player.NameShort,
 			Position: player.Position,
+			Jersey: player.Jersey,
 			Starter: player.Starter,
 			Order: player.Order,
+			Minutes: player.Statistics.Minutes,
 			Points: player.Statistics.Points,
 			Oreb: player.Statistics.Oreb,
 			Dreb: player.Statistics.Dreb,
@@ -177,6 +181,7 @@ func TPlayerData(p []stats.NbaPlayer) map[int]PlayerData {
 			Fouls: player.Statistics.Fouls,
 			Fouled: player.Statistics.FoulsDrawn,
 			Technicals: player.Statistics.Technicals,
+			FoulsOffensive: player.Statistics.FoulsOff,
 			Fastbreak: player.Statistics.PointsFast,
 			Paint: player.Statistics.PointsPaint,
 			SecondChance: player.Statistics.PointsSecond,
