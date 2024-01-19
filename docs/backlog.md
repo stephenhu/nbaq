@@ -18,3 +18,4 @@
 * put profile data for initcache
 * all calculations are done in the background
 * dump the current memory into file
+* search player by player name

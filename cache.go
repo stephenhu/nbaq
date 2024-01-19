@@ -12,24 +12,12 @@ import (
 )
 
 
-type PlayerData struct {
-	ID                    int        		`json:"id"`
-	First									string        `json:"first"`
-	Last									string        `json:"last"`
-	Full									string        `json:"full"`
-	Abv										string        `json:"abv"`
-	Jersey                string        `json:"jerseyNum"`
-	Position              string        `json:"position"`
-	Starter								string        `json:"starter"`
-	Active                string        `json:"active"`
-	Order                 int           `json:"order"`
+type Stats struct {
 	Minutes               string        `json:"minutes"`
 	Points								int           `json:"points"`
 	Oreb									int           `json:"oreb"`
 	Dreb									int           `json:"dreb"`
 	Treb									int           `json:"treb"`
-	Fga										int           `json:"fga"`
-	Fgm										int           `json:"fgm"`
 	Fta										int           `json:"fta"`
 	Ftm										int           `json:"ftm"`
 	Fg2a									int           `json:"fg2a"`
@@ -52,6 +40,21 @@ type PlayerData struct {
 }
 
 
+type PlayerStats struct {
+	ID                    int        		`json:"id"`
+	First									string        `json:"first"`
+	Last									string        `json:"last"`
+	Full									string        `json:"full"`
+	Abv										string        `json:"abv"`
+	Jersey                string        `json:"jerseyNum"`
+	Position              string        `json:"position"`
+	Starter								string        `json:"starter"`
+	Active                string        `json:"active"`
+	Order                 int           `json:"order"`
+	Stats			`json:"stats"`
+}
+
+
 type Period struct {
 	Number								int           `json:"number"`
 	PeriodType						string        `json:"periodType"`
@@ -60,11 +63,11 @@ type Period struct {
 }
 
 
-type TeamData struct {
+type TeamStats struct {
 	ID                		int           `json:"id"`
 	Abv                   string        `json:"abv"`
 	Score                 int           `json:"score"`
-	Players               map[int]PlayerData 	`json:"players"`
+	Players               map[int]PlayerStats 	`json:"players"`
 }
 
 
@@ -77,8 +80,8 @@ type Play struct {
 type Game struct {
 	ID                    string        `json:"id"`
 	Date                  string        `json:"date"`
-	Away									TeamData			`json:"away"`
-	Home									TeamData			`json:"home"`
+	Away									TeamStats			`json:"away"`
+	Home									TeamStats			`json:"home"`
 	Periods								map[int]Period			`json:"periods"`
 	Plays                 map[string]Play     `json:"plays"`
 }
@@ -89,8 +92,26 @@ type Standings struct {
 }
 
 
-type Leaders struct {
+type GameStats struct {
+  GameID					string								`json:"gameId"`
+	TeamID					int										`json:"teamId"`
+	PlayerID				int										`json:"playerId"`
+	Date            string                `json:"date"`
+	Position				string								`json:"position"`
+	Full						string								`json:"full"`
+	Abv							string								`json:"abv"`
+	Stats           Stats									`json:"stats"`
+}
 
+
+type SeasonData struct {
+
+
+}
+
+
+type Leaders struct {
+  Players				map[int]PlayerStats					`json:"players"`
 }
 
 
@@ -99,6 +120,8 @@ type Season struct {
 	Games									map[string]Game	`json:"games"`
 	Standings							Standings			`json:"standings"`
 	Leaders								Leaders				`json:"leaders"`
+	Players               map[int]map[string]GameStats		`json:"players"`
+	Teams               	map[int]map[string]GameStats		`json:"teams"`
 }
 
 
@@ -134,25 +157,13 @@ type NbaCache struct {
 }
 
 
-func AddPlayer() {
+func TPlayerStats(p []stats.NbaPlayer) map[int]PlayerStats {
 
-} // AddPlayer
-
-
-func AddTeam() {
-
-} // AddTeam
-
-
-func TPlayerData(p []stats.NbaPlayer) map[int]PlayerData {
-
-	ret := map[int]PlayerData{}
+	ret := map[int]PlayerStats{}
 
 	for _, player := range p {
 
-		log.Println(player)
-
-		ret[player.ID] = PlayerData {
+		ret[player.ID] = PlayerStats {
 			ID: player.ID,
 			First: player.First,
 			Last: player.Last,
@@ -162,36 +173,38 @@ func TPlayerData(p []stats.NbaPlayer) map[int]PlayerData {
 			Jersey: player.Jersey,
 			Starter: player.Starter,
 			Order: player.Order,
-			Minutes: player.Statistics.Minutes,
-			Points: player.Statistics.Points,
-			Oreb: player.Statistics.Oreb,
-			Dreb: player.Statistics.Dreb,
-			Treb: player.Statistics.Treb,
-			Fga: player.Statistics.Fga,
-			Fgm: player.Statistics.Fgm,
-			Fta: player.Statistics.Fta,
-			Ftm: player.Statistics.Ftm,
-			Fg3a: player.Statistics.Fg3a,
-			Fg3m: player.Statistics.Fg3m,
-			Assists: player.Statistics.Assists,
-			Blocks: player.Statistics.Blocks,
-			Steals: player.Statistics.Steals,
-			Blocked: player.Statistics.Blocked,
-			Turnovers: player.Statistics.Turnovers,
-			Fouls: player.Statistics.Fouls,
-			Fouled: player.Statistics.FoulsDrawn,
-			Technicals: player.Statistics.Technicals,
-			FoulsOffensive: player.Statistics.FoulsOff,
-			Fastbreak: player.Statistics.PointsFast,
-			Paint: player.Statistics.PointsPaint,
-			SecondChance: player.Statistics.PointsSecond,
-			PlusMinus: player.Statistics.PlusMinus,
+			Stats: Stats{
+				Minutes: player.Statistics.Minutes,
+				Points: player.Statistics.Points,
+				Oreb: player.Statistics.Oreb,
+				Dreb: player.Statistics.Dreb,
+				Treb: player.Statistics.Treb,
+				Fta: player.Statistics.Fta,
+				Ftm: player.Statistics.Ftm,
+				Fg2a: player.Statistics.Fg2a,
+				Fg2m: player.Statistics.Fg2m,
+				Fg3a: player.Statistics.Fg3a,
+				Fg3m: player.Statistics.Fg3m,
+				Assists: player.Statistics.Assists,
+				Blocks: player.Statistics.Blocks,
+				Steals: player.Statistics.Steals,
+				Blocked: player.Statistics.Blocked,
+				Turnovers: player.Statistics.Turnovers,
+				Fouls: player.Statistics.Fouls,
+				Fouled: player.Statistics.FoulsDrawn,
+				Technicals: player.Statistics.Technicals,
+				FoulsOffensive: player.Statistics.FoulsOff,
+				Fastbreak: player.Statistics.PointsFast,
+				Paint: player.Statistics.PointsPaint,
+				SecondChance: player.Statistics.PointsSecond,
+				PlusMinus: player.Statistics.PlusMinus,
+			},
 		}
 	}
 
 	return ret
 
-} // TPlayerData
+} // TPlayerStats
 
 
 func TPeriods(a []stats.NbaScoreData,
@@ -230,6 +243,7 @@ func TBoxscore(b stats.NbaBoxscore) {
 	s := Season{
 		ID: src,
 		Games: map[string]Game{},
+		Players: map[int]map[string]GameStats{},
 	}
 
 	_, ok := cache.Seasons[src]
@@ -242,17 +256,17 @@ func TBoxscore(b stats.NbaBoxscore) {
 		ID: b.Game.ID,
 		Date: b.Game.GameTime,
 		Periods: TPeriods(b.Game.Away.Periods, b.Game.Home.Periods),
-		Away: TeamData{
+		Away: TeamStats{
 			ID: b.Game.Away.ID,
 			Abv: b.Game.Away.ShortName,
 			Score: b.Game.Away.Score,
-			Players: TPlayerData(b.Game.Away.Players),
+			Players: TPlayerStats(b.Game.Away.Players),
 		},
-		Home: TeamData{
+		Home: TeamStats{
 			ID: b.Game.Home.ID,
 			Abv: b.Game.Home.ShortName,
 			Score: b.Game.Home.Score,
-			Players: TPlayerData(b.Game.Home.Players),
+			Players: TPlayerStats(b.Game.Home.Players),
 		},
 	}
 
@@ -282,6 +296,73 @@ func loadBoxscore(p string) {
 	}
 
 } // loadBoxscore
+
+
+func TPlayerGameStats() {
+
+} // TPLayerGameStats
+
+
+func initPlayerStats() {
+	
+	players := cache.Seasons[src].Players
+
+	for _, g := range cache.Seasons[src].Games {
+
+		for _, p := range g.Away.Players {
+
+			_, ok := players[p.ID]
+
+			if !ok {
+				players[p.ID] = make(map[string]GameStats)
+			}
+
+			players[p.ID][g.ID] = GameStats{
+				GameID: g.ID,
+				TeamID: g.Away.ID,
+				PlayerID: p.ID,
+				Date: g.Date,
+				Position: p.Position,
+				Full: p.Full,
+				Abv: p.Abv,
+				Stats: Stats{
+					Minutes: p.Stats.Minutes,
+					Points: p.Stats.Points,
+					Oreb: p.Stats.Oreb,
+					Dreb: p.Stats.Dreb,
+					Treb: p.Stats.Treb,
+					Assists: p.Stats.Assists,
+					Blocks: p.Stats.Blocks,
+					Steals: p.Stats.Steals,
+					Turnovers: p.Stats.Turnovers,
+					Fouls: p.Stats.Fouls,
+					Fouled: p.Stats.Fouled,
+					FoulsOffensive: p.Stats.FoulsOffensive,
+					Technicals: p.Stats.Technicals,
+					Blocked: p.Stats.Blocked,
+					Fta: p.Stats.Fta,
+					Ftm: p.Stats.Ftm,
+					Fg2a: p.Stats.Fg2a,
+					Fg2m: p.Stats.Fg2m,
+					Fg3a: p.Stats.Fg3a,
+					Fg3m: p.Stats.Fg3m,
+					Paint: p.Stats.Paint,
+					Fastbreak: p.Stats.Fastbreak,
+					SecondChance: p.Stats.SecondChance,
+					PlusMinus: p.Stats.PlusMinus,
+				},
+			}
+
+		}
+
+	}
+
+} // initPlayerStats
+
+
+func initTeamStats() {
+
+} // initTeamStats
 
 
 func initCache() {
@@ -317,6 +398,10 @@ func initCache() {
 
 	}
 
-	log.Printf("%v\n", cache)
+	//log.Printf("%v\n", cache)
+
+	initPlayerStats()
+
+	initTeamStats()
 
 } // initCache

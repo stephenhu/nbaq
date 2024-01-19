@@ -21,7 +21,7 @@ func playerHandler(w http.ResponseWriter, r *http.Request) {
 
 		log.Println(id)
 
-		g := cache.Seasons["2023"].Games[id]
+		g := cache.Seasons["2023"].Players[1626167]
 
 		j, err := json.Marshal(g)
 

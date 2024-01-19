@@ -8,7 +8,7 @@ import (
 
 
 func version() string {
-	return fmt.Sprintf("NBAq v%s", APP_VERSION)
+	return fmt.Sprintf("NBAQ v%s", APP_VERSION)
 } // version
 
 
