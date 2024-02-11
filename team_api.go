@@ -21,9 +21,7 @@ func teamHandler(w http.ResponseWriter, r *http.Request) {
 
 		log.Println(id)
 
-		g := cache.Seasons["2023"].Games[id]
-
-		j, err := json.Marshal(g)
+		j, err := json.Marshal(id)
 
 		if err != nil {
 			log.Println(err)

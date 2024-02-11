@@ -12,7 +12,6 @@ import (
 
 var (
   src 			string
-	cache			NbaCache
 )
 
 
@@ -43,7 +42,9 @@ func main() {
 
 	fmt.Printf("Starting %s...\n", version())
 
-	initCache()
+	initWarehouse()
+
+	defer db.Close()
 
 	log.Fatal(http.ListenAndServe("127.0.0.1:8000", initRouter()))
 

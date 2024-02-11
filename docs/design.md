@@ -1,3 +1,9 @@
 # design
 
-* init cache by reading data from disk into local memory
+* player season (season totals)
+* team season (season totals)
+* leaders
+* play by play
+* standings
+* rookies
+* 

@@ -19,9 +19,11 @@ func gameHandler(w http.ResponseWriter, r *http.Request) {
 
 		id := vars[ID]
 
-		g := cache.Seasons["2023"].Games[id]
+		//g := cache.Seasons["2023"].Games[id]
 
-		j, err := json.Marshal(g)
+		log.Println(id)
+
+		j, err := json.Marshal(id)
 
 		if err != nil {
 			log.Println(err)

@@ -2,6 +2,7 @@ package main
 
 const (
 	APP_VERSION						= "0.1"
+	WAREHOUSE_DIR         = ".warehouse"
 )
 
 
