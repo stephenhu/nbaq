@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 
@@ -29,18 +30,22 @@ func getFiles(fp string) []os.DirEntry {
 } // getFiles
 
 
-func getLatest() string {
+func getLatest(p string) string {
 
 	var ret string
 
-	files := getFiles(filepath.Join(src, WAREHOUSE_DIR))
+	files := getFiles(filepath.Join(dir, WAREHOUSE_DIR))
 
 	for _, f := range files {
 
-		if len(ret) == 0 {
-			ret = f.Name()
-		} else if ret < f.Name(){
-			ret = f.Name()
+		if strings.Contains(f.Name(), p) {
+			
+			if len(ret) == 0 {
+				ret = f.Name()
+			} else if ret < f.Name(){
+				ret = f.Name()
+			}
+
 		}
 
 	}

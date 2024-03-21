@@ -61,7 +61,13 @@ func initWarehouse() {
 
 
 func warehousePlayers() string {
-  return filepath.Join(src, WAREHOUSE_DIR, getLatest())
+
+	l := getLatest(PLAYERS_PREFIX)
+
+	log.Println(l)
+	
+  return filepath.Join(dir, WAREHOUSE_DIR, getLatest(
+		PLAYERS_PREFIX))
 } // warehousePlayers
 
 
@@ -72,8 +78,10 @@ func getPlayerSeason(id string) *stats.PlayerSeason {
 		Info: stats.PlayerInfo{},
 	}
 
-	rows, err := db.Query(fmt.Sprintf(QUERY_PLAYERS,
-		warehousePlayers(), id))
+	q := fmt.Sprintf(QUERY_PLAYERS,
+		warehousePlayers(), id)
+
+	rows, err := db.Query(q)
 
 	if err != nil {
 		log.Println(err)

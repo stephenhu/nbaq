@@ -4,6 +4,7 @@ go 1.21.5
 
 require (
 	github.com/gorilla/mux v1.8.1
+	github.com/madsportslab/sportsearch v0.0.0-20240302051443-b94340cfebc0
 	github.com/marcboeker/go-duckdb v1.5.6
 	github.com/stephenhu/stats v0.3.4
 )

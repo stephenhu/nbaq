@@ -9,4 +9,6 @@ LABEL org.opencontainers.image.description="nba api"
 LABEL org.opencontainers.image.licenses=MIT
 WORKDIR /usr/local/nbaq
 COPY --from=builder /sources/nbaq .
-CMD ["/usr/local/nbaq/nbaq", "-src", "2023"]
+COPY data .
+EXPOSE 8000
+CMD ["/usr/local/nbaq/nbaq", "-dir", "2023"]

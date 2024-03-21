@@ -6,4 +6,4 @@
 * play by play
 * standings
 * rookies
-* 
+* search

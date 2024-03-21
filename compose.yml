@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: "traefik"
+    command:
+      - "--global.sendAnonymousUsage=false"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposebydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.traefik.address=:8080"
+      - "--log.level=WARN"
+    label:
+      - "traefik.http.routers.http_catchall.entrypoints=web"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    depends_on:
+      - "nbaq"
+  nbaq:
+    image: "nbaq"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nbaq.rule=Path(`/`)"
+      - "traefik.http.routers.nbaq.entrypoints=web"
+    depends_on:
+      - "minio"
+  nbac:
+    image: "nbac"
+    depends_on:
+      - "minio"
+  minio:
+    image: minio
+    command: server /data --console-address ":9001"
+    expose:
+      - "9000"
+      - "9001"
+    volumes:
+      - data:/data
+volumes:
+  data:
