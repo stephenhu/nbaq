@@ -37,10 +37,6 @@ func initRouter() *mux.Router {
 
 func main() {
 
-	initFlags()
-
-	flag.Parse()
-
 	fmt.Printf("Starting %s...\n", version())
 
 	initWarehouse()
