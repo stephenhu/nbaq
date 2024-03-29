@@ -43,6 +43,6 @@ func main() {
 
 	defer db.Close()
 
-	log.Fatal(http.ListenAndServe("localhost:8000", initRouter()))
+	log.Fatal(http.ListenAndServe(":8000", initRouter()))
 
 } // main

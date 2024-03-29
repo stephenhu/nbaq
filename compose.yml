@@ -18,13 +18,12 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    depends_on:
-      - "nbaq"
   nbaq:
     image: "nbaq"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nbaq.rule=Path(`/api`)"
+      #- "traefik.http.routers.nbaq.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.nbaq.rule=Host(`api.localhost`)"
       - "traefik.http.routers.nbaq.entrypoints=web"
     secrets:
       - blob_secret
@@ -44,9 +43,13 @@ services:
     environment:
       - MINIO_ROOT_USER=${NBALAKE_KEY}
       - MINIO_ROOT_PASSWORD=${NBALAKE_SECRET}
-    ports:
-      - "9000:9000"
-      - "9001:9001"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.minioconsole.service=minioconsole"
+      - "traefik.http.routers.minioconsole.rule=Host(`nbalake.localhost`)"
+      #- "traefik.http.routers.minioconsole.rule=PathPrefix(`/nbalake`)"
+      - "traefik.http.routers.minioconsole.entrypoints=web"
+      - "traefik.http.services.minioconsole.loadbalancer.server.port=9001"
     volumes:
       - data:/data
 
